@@ -1,4 +1,4 @@
-import { FormikContextType, FormikValues, useFormikContext } from 'formik';
+import { FormikValues, useFormikContext } from 'formik';
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import { FormValues } from '../types';
@@ -16,24 +16,30 @@ async function apiCall(values: FormValues | null): Promise<string> {
   });
 }
 
-function useFormikValuesRef<T extends FormikValues>(ctx: FormikContextType<T>) {
+function usePaypalCallback<T extends FormikValues>(
+  fetchECToken: (values: T | null) => Promise<string>
+) {
+  const ctx = useFormikContext<T>();
   const ref = useRef<T | null>(null);
+
   useEffect(() => {
     ref.current = ctx.values;
   }, [ctx.values]);
-  return ref;
-}
-function PaypalFormHandler(_: Props) {
-  const ctx = useFormikContext<FormValues>();
-  const ref = useFormikValuesRef(ctx);
+
   const onPaypalClicked = useCallback(async () => {
     const res = await ctx
       .submitForm()
       .then(() => Promise.resolve(ref.current))
-      .then(apiCall);
+      .then(fetchECToken);
     return res;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  return onPaypalClicked;
+}
+
+function PaypalFormHandler(_: Props) {
+  const onPaypalClicked = usePaypalCallback(apiCall);
   return <PaypalButton onPaypalClicked={onPaypalClicked}></PaypalButton>;
 }
 
