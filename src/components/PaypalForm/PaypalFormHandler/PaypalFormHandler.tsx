@@ -11,7 +11,7 @@ async function apiCall(values: FormValues | null): Promise<string> {
   return new Promise<string>(resolve => {
     setTimeout(() => {
       console.log("call ended");
-      resolve("paypal_token");
+      resolve("EC-9RY2628262462061J");
     }, 1000);
   });
 }
