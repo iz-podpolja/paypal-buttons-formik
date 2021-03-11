@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button {
+  @apply tw-py-2
+  tw-px-4
+  tw-bg-indigo-500
+  tw-text-white
+  tw-font-semibold
+  tw-rounded-lg
+  tw-shadow-md
+  hover:tw-bg-indigo-700
+  focus:tw-outline-none
+  focus:tw-ring-2
+  focus:tw-ring-indigo-400
+  focus:tw-ring-opacity-75;
+  /* overrides  */
+  border-style: solid;
+  border-width: 3px;
+}
