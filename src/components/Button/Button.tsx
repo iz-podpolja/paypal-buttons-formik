@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { ButtonHTMLAttributes, useMemo } from 'react';
 
 import TypedMemo from '../../utils/typedMemo';
-import css from './Button.module.css';
+import css from './Button.module.sass';
 
 function Button({
   children: _,
